@@ -1288,17 +1288,17 @@
 
       <!-- TAB CONTENT 1: RESERVATIONS REGISTRY -->
       <div id="admin-tab-reservations" class="py-4 space-y-4">
-        <!-- Role Transaction Explainer Banner -->
-        <div class="p-4 rounded-2xl bg-[#1b222c] border border-[#c5a880]/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <!-- Role Transaction Explainer Banner (3rd Increment Milestone) -->
+        <div class="p-4 rounded-2xl bg-[#1b222c] border border-amber-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
           <div>
             <div class="flex items-center space-x-2">
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#c5a880]/20 text-[#c5a880] border border-[#c5a880]/40 font-mono">2-Role Transaction Cycle</span>
-              <span class="text-xs font-bold text-white">Client Reservation &rarr; Director Review & Approval</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">3-Role Transaction Cycle (3rd Increment)</span>
+              <span class="text-xs font-bold text-white">Client Inquiry &rarr; Counselor Endorsement &rarr; Director Approval</span>
             </div>
             <p class="text-xs text-slate-300 mt-1">
-              1. <strong>Client</strong> books a funeral or viewing package from the mobile app &rarr; 
-              2. <strong>Memorial Director</strong> reviews details, marks as Confirmed/Completed, or generates certificate &rarr; 
-              3. Status reflects across both accounts in real time.
+              1. <strong>Client / Family:</strong> Submits pre-need plan or memorial reservation request &rarr; 
+              2. <strong>Family Care Counselor:</strong> Performs intake assessment, configures amortization terms, and submits plan endorsement &rarr; 
+              3. <strong>Memorial Director:</strong> Reviews counselor notes, approves contract, and issues binding certificate.
             </p>
           </div>
           <div class="flex items-center space-x-2 shrink-0">
@@ -1490,6 +1490,7 @@
             <select id="admin-filter-user-role" onchange="renderAdminUsers()" class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-200">
               <option value="all">All Roles</option>
               <option value="admin">Admin / Director</option>
+              <option value="counselor">Family Care Counselor</option>
               <option value="client">Client / Family</option>
             </select>
           </div>
@@ -1939,6 +1940,28 @@
               <span class="text-slate-400">Scheduled Rites Date:</span>
               <span id="cert-sched" class="font-mono text-slate-200">2026-11-02</span>
             </div>
+            <!-- Counselor Endorsement & Approval Details (3rd Increment) -->
+            <div id="cert-endorsement-block" class="pt-2 border-t border-slate-800/80 space-y-1 text-[11px] hidden">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Faith Tradition & Rites:</span>
+                <span id="cert-faith" class="text-indigo-300 font-semibold">Roman Catholic</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Financing Terms:</span>
+                <span id="cert-terms" class="text-emerald-300 font-mono">12-Month Installment</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Family Care Counselor:</span>
+                <span id="cert-counselor" class="text-slate-200">Elena Rostova</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Director Approval:</span>
+                <span id="cert-director" class="text-amber-300 font-semibold">Director Arthur Vance (Approved)</span>
+              </div>
+              <div id="cert-notes-container" class="mt-1 p-2 rounded-lg bg-slate-950/80 border border-slate-800 text-[10px] text-slate-300 italic">
+                <span id="cert-counselor-notes">Counselor care intake verified.</span>
+              </div>
+            </div>
           </div>
 
           <div class="flex justify-between items-center pt-1 border-t border-slate-800">
@@ -1948,7 +1971,7 @@
         </div>
 
         <div class="text-center text-[10px] text-slate-500 border-t border-[#c5a880]/20 pt-2">
-          Official electronic voucher registered under Everloom Memorial Services Cloud Registry.
+          Official generative memorial contract & certificate authorized under Everloom 3-Role Governance Milestone.
         </div>
       </div>
 
@@ -2295,6 +2318,7 @@
             <label class="block text-slate-300 font-semibold mb-1">Security Role *</label>
             <select id="admin-user-role" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
               <option value="client">Client / Family</option>
+              <option value="counselor">Family Care Counselor</option>
               <option value="admin">Memorial Admin / Director</option>
             </select>
           </div>
@@ -2365,6 +2389,79 @@
         <button type="button" onclick="closeModal('modal-restore-confirm')" class="flex-1 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 text-xs font-semibold">Cancel</button>
         <button type="button" onclick="executeDatabaseRestore()" class="flex-1 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold shadow">Yes, Restore Data</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CLIENT COUNSELOR CONSULTATION REQUEST (3RD INCREMENT)              -->
+  <!-- ========================================================================= -->
+  <div id="modal-counselor-request" class="fixed inset-0 z-[85] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="w-full max-w-md bg-[#171c24] border border-indigo-500/50 rounded-3xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-start justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 flex items-center justify-center">
+            <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400">Step 1: Family Planning</span>
+            <h3 class="text-base font-bold text-white mt-0.5">Request Counselor Care Session</h3>
+            <p class="text-xs text-slate-400">Schedule a compassionate one-on-one session with Elena Rostova.</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-counselor-request')" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <form id="form-client-counselor-request" onsubmit="handleClientCounselorRequestSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Your Legal Name *</label>
+          <input type="text" id="req-counselor-client-name" required placeholder="e.g. Maria Santos" class="w-full text-xs p-2.5 rounded-xl glass-input">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Contact Phone / Mobile *</label>
+          <input type="text" id="req-counselor-contact" required placeholder="e.g. +63 917 123 4567" class="w-full text-xs p-2.5 rounded-xl glass-input">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Preferred Date *</label>
+            <input type="date" id="req-counselor-date" required class="w-full text-xs p-2.5 rounded-xl glass-input">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Preferred Time Window</label>
+            <select id="req-counselor-time" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+              <option value="09:00 AM - 10:00 AM">Morning (09:00 AM)</option>
+              <option value="02:00 PM - 03:00 PM" selected>Afternoon (02:00 PM)</option>
+              <option value="05:00 PM - 06:00 PM">Evening (05:00 PM)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Consultation Medium *</label>
+          <select id="req-counselor-medium" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+            <option value="In-Person Chapel Tour">In-Person Chapel Walkthrough & Sanctuary Tour</option>
+            <option value="Video Conference (Google Meet)">Compassionate Video Conference (Tele-counseling)</option>
+            <option value="Phone Call Consultation">Direct Compassionate Phone Call</option>
+            <option value="Home Visit">In-Home Counselor Pastoral Visit</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Your Questions or Memorial Wishes</label>
+          <textarea id="req-counselor-notes" rows="2.5" placeholder="e.g. Wish to inquire about pre-need 12-month installment, senior subsidy, and Catholic evening rosary arrangements." class="w-full text-xs p-2.5 rounded-xl glass-input"></textarea>
+        </div>
+
+        <div class="flex items-center space-x-2 pt-2">
+          <button type="button" onclick="closeModal('modal-counselor-request')" class="flex-1 py-2.5 rounded-xl bg-slate-800 text-slate-300 font-semibold hover:bg-slate-700 transition">
+            Cancel
+          </button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 text-white font-bold text-xs uppercase tracking-wider hover:brightness-110 shadow-lg transition flex items-center justify-center space-x-1.5">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>Submit Request</span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -3544,7 +3641,9 @@
             <td class="px-4 py-3 font-mono text-slate-300 select-all">${u.email}</td>
             <td class="px-4 py-3">
               <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
-                u.role === 'admin' ? 'bg-amber-950 text-amber-300 border border-amber-800' : 'bg-blue-950 text-blue-300 border border-blue-800'
+                u.role === 'admin' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
+                u.role === 'counselor' ? 'bg-indigo-950 text-indigo-300 border border-indigo-800' :
+                'bg-blue-950 text-blue-300 border border-blue-800'
               }">${u.role.toUpperCase()}</span>
             </td>
             <td class="px-4 py-3">
@@ -5036,8 +5135,68 @@
     }
 
     function requestCounselorCall() {
-      showToast('A compassionate family counselor will call you within 15 minutes.', 'success');
-      addAuditLog('INQUIRY', 'Pre-need counselor consultation requested', currentUser?.email || 'Client');
+      openCounselorRequestModal();
+    }
+
+    function openCounselorRequestModal() {
+      const modal = document.getElementById('modal-counselor-request');
+      if (!modal) return;
+
+      const nameInput = document.getElementById('req-counselor-client-name');
+      const contactInput = document.getElementById('req-counselor-contact');
+      const dateInput = document.getElementById('req-counselor-date');
+
+      if (currentUser) {
+        if (nameInput) nameInput.value = currentUser.full_name || '';
+        if (contactInput && currentUser.contact) contactInput.value = currentUser.contact;
+      }
+      if (dateInput && !dateInput.value) {
+        const d = new Date();
+        d.setDate(d.getDate() + 2);
+        dateInput.value = d.toISOString().split('T')[0];
+      }
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function handleClientCounselorRequestSubmit(e) {
+      e.preventDefault();
+
+      const clientName = document.getElementById('req-counselor-client-name')?.value.trim();
+      const contact = document.getElementById('req-counselor-contact')?.value.trim();
+      const date = document.getElementById('req-counselor-date')?.value;
+      const time = document.getElementById('req-counselor-time')?.value;
+      const medium = document.getElementById('req-counselor-medium')?.value;
+      const notes = document.getElementById('req-counselor-notes')?.value.trim() || 'Client consultation inquiry.';
+
+      if (!clientName || !contact || !date) {
+        showToast('Please fill out all required fields.', 'error');
+        return;
+      }
+
+      const newConsult = {
+        id: 'cns_' + Date.now(),
+        client_name: clientName,
+        contact: contact,
+        date: date,
+        time: time,
+        medium: medium,
+        notes: notes,
+        counselor: "Elena Rostova (Counselor)"
+      };
+
+      appCounselorConsultations.unshift(newConsult);
+      localStorage.setItem('everloom_counselor_consultations', JSON.stringify(appCounselorConsultations));
+      addSecurityAuditRecord(currentUser?.email || 'client@everloom.com', `CLIENT_COUNSELOR_REQUEST [${clientName}]`, 'Consultations', 'SUCCESS');
+      addAuditLog('CONSULTATION', `New consultation requested by ${clientName} on ${date} (${medium})`, currentUser?.email || 'client@everloom.com');
+
+      closeModal('modal-counselor-request');
+      document.getElementById('form-client-counselor-request')?.reset();
+      renderCounselorConsultations();
+      updateStats();
+
+      showToast(`Consultation requested! Counselor Elena Rostova will connect with you on ${date} (${time}).`, 'success');
     }
 
     // Generative Memorial Certificate & Statement (/generative_ui)
@@ -5067,6 +5226,26 @@
       if (certSched) certSched.textContent = rec.schedule_date || 'Flexible Date';
       if (certTotal) certTotal.textContent = Number(rec.total_amount).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
       if (certBadge) certBadge.textContent = (rec.status || 'CONFIRMED').toUpperCase();
+
+      // 3rd Increment Endorsement Details Binding
+      const endBlock = document.getElementById('cert-endorsement-block');
+      const certFaith = document.getElementById('cert-faith');
+      const certTerms = document.getElementById('cert-terms');
+      const certCounselor = document.getElementById('cert-counselor');
+      const certDirector = document.getElementById('cert-director');
+      const certNotes = document.getElementById('cert-counselor-notes');
+
+      if (rec.counselor_endorsement && endBlock) {
+        endBlock.classList.remove('hidden');
+        const end = rec.counselor_endorsement;
+        if (certFaith) certFaith.textContent = end.faith_tradition || 'Traditional Christian/Catholic';
+        if (certTerms) certTerms.textContent = `${end.payment_terms || 'Standard Term'}${end.monthly_amortization ? ` (₱${Number(end.monthly_amortization).toLocaleString('en-PH', { minimumFractionDigits: 2 })}/mo)` : ''}`;
+        if (certCounselor) certCounselor.textContent = end.endorsed_by || 'Elena Rostova (Counselor)';
+        if (certDirector) certDirector.textContent = end.approved_by ? `${end.approved_by} (Confirmed & Issued)` : 'Director Arthur Vance (Director Approval Confirmed)';
+        if (certNotes) certNotes.textContent = `"${end.counselor_notes || rec.notes || 'Family intake and memorial care assessment completed.'}"`;
+      } else if (endBlock) {
+        endBlock.classList.add('hidden');
+      }
 
       const modal = document.getElementById('modal-generative-certificate');
       if (modal) modal.classList.remove('hidden');

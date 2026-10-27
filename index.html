@@ -4806,6 +4806,11 @@
                   Approve / Confirm
                 </button>
               ` : ''}
+              ${r.status === 'endorsed' ? `
+                <button onclick="approveCounselorEndorsement('${r.id}')" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold shadow inline-flex items-center gap-1">
+                  <i data-lucide="check" class="w-3 h-3"></i> Approve Endorsement
+                </button>
+              ` : ''}
               ${r.status === 'confirmed' ? `
                 <button onclick="showGenerativeCertificate('${r.id}')" class="px-2 py-1 rounded-lg bg-[#c5a880] hover:bg-[#b8a189] text-[#101216] text-[10px] font-bold shadow">
                   Certificate

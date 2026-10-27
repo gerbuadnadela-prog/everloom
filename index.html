@@ -134,6 +134,10 @@
           <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
           <span>Mobile App</span>
         </button>
+        <button id="nav-btn-counselor" onclick="switchRole('counselor')" class="flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800">
+          <i data-lucide="heart-handshake" class="w-3.5 h-3.5 text-indigo-400"></i>
+          <span>Counselor Portal</span>
+        </button>
         <button id="nav-btn-admin" onclick="switchRole('admin')" class="flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800">
           <i data-lucide="calendar-check-2" class="w-3.5 h-3.5"></i>
           <span>Admin Portal</span>
@@ -147,8 +151,11 @@
       <!-- Current User Profile Pill & Logout Trigger -->
       <div class="flex items-center space-x-2 pl-2 border-l border-slate-800">
         <div class="hidden md:block text-right">
-          <div id="header-user-name" class="text-xs font-bold text-white truncate max-w-[130px]">Maria Santos</div>
-          <div id="header-user-email" class="text-[10px] text-slate-400 font-mono truncate max-w-[130px]">client@everloom.com</div>
+          <div class="flex items-center justify-end space-x-1.5">
+            <span id="header-user-name" class="text-xs font-bold text-white truncate max-w-[130px]">Maria Santos</span>
+            <span id="system-role-badge" class="text-[9px] px-1.5 py-0.2 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 font-mono">Family Client</span>
+          </div>
+          <div id="header-user-email" class="text-[10px] text-slate-400 font-mono truncate max-w-[150px]">client@everloom.com</div>
         </div>
         
         <button onclick="promptLogout()" class="px-3 py-1.5 rounded-xl bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 hover:text-rose-100 border border-rose-800/80 text-xs font-semibold flex items-center space-x-1.5 transition shadow" title="Logout of session">
@@ -314,6 +321,7 @@
               <label class="block text-slate-300 font-semibold mb-1">Assigned Role *</label>
               <select id="reg-role" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
                 <option value="client">Client / Family (Mobile App)</option>
+                <option value="counselor">Family Care Counselor</option>
                 <option value="admin">Memorial Director (Admin)</option>
               </select>
             </div>
@@ -380,36 +388,35 @@
             <span class="text-[9px] text-slate-500 font-mono">1-Click Fill</span>
           </div>
           
-          <div class="grid grid-cols-2 gap-2">
+          <div class="grid grid-cols-3 gap-2">
             <!-- Demo 1: Client / Family -->
-            <button type="button" onclick="fillDemoAccount('client@everloom.com', 'client123!')" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-left transition group">
+            <button type="button" onclick="fillDemoAccount('client@everloom.com', 'client123!')" class="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-left transition group">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-white group-hover:text-[#c5a880]">Role 1: Client</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-800">Mobile</span>
+                <span class="text-[11px] font-bold text-white group-hover:text-[#c5a880]">Role 1: Client</span>
+                <span class="text-[8px] px-1 py-0.2 rounded bg-blue-950 text-blue-300 border border-blue-800">Mobile</span>
               </div>
-              <div class="text-[10px] text-slate-400 truncate mt-0.5">client@everloom.com</div>
+              <div class="text-[9px] text-slate-400 truncate mt-0.5">client@everloom.com</div>
               <div class="text-[9px] text-slate-500 font-mono">Pass: client123!</div>
             </button>
 
-            <!-- Demo 2: Memorial Director -->
-            <button type="button" onclick="fillDemoAccount('director@everloom.com', 'director123!')" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-left transition group">
+            <!-- Demo 2: Counselor -->
+            <button type="button" onclick="fillDemoAccount('counselor@everloom.com', 'counselor123!')" class="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-indigo-700/60 text-left transition group">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-white group-hover:text-[#c5a880]">Role 2: Director</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">Admin</span>
+                <span class="text-[11px] font-bold text-white group-hover:text-indigo-300">Role 2: Counselor</span>
+                <span class="text-[8px] px-1 py-0.2 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">Review</span>
               </div>
-              <div class="text-[10px] text-slate-400 truncate mt-0.5">director@everloom.com</div>
-              <div class="text-[9px] text-slate-500 font-mono">Pass: director123!</div>
+              <div class="text-[9px] text-indigo-300/80 truncate mt-0.5">counselor@everloom.com</div>
+              <div class="text-[9px] text-slate-500 font-mono">Pass: counselor123!</div>
             </button>
-          </div>
 
-          <!-- Demo 3: Counselor / Billing (Role 3 Demonstration) -->
-          <div class="mt-2">
-            <button type="button" onclick="fillDemoAccount('counselor@everloom.com', 'counselor123!')" class="w-full p-2 rounded-xl bg-slate-900/50 hover:bg-slate-800 border border-slate-800 text-left transition flex items-center justify-between">
-              <div class="flex items-center space-x-2">
-                <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
-                <span class="text-xs text-slate-300 font-medium">Role 3: Pre-Need Counselor (counselor@everloom.com)</span>
+            <!-- Demo 3: Director / Admin -->
+            <button type="button" onclick="fillDemoAccount('director@everloom.com', 'director123!')" class="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-amber-700/60 text-left transition group">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold text-white group-hover:text-[#c5a880]">Role 3: Director</span>
+                <span class="text-[8px] px-1 py-0.2 rounded bg-amber-950 text-amber-300 border border-amber-800">Admin</span>
               </div>
-              <span class="text-[9px] font-mono text-slate-500">Pass: counselor123!</span>
+              <div class="text-[9px] text-amber-300/80 truncate mt-0.5">director@everloom.com</div>
+              <div class="text-[9px] text-slate-500 font-mono">Pass: director123!</div>
             </button>
           </div>
         </div>
@@ -567,8 +574,8 @@
               <!-- Compassionate Guidance Hero Banner -->
               <div class="p-4 rounded-2xl bg-gradient-to-br from-[#242b36] via-[#1c222c] to-[#161a22] border border-[#c5a880]/30 relative overflow-hidden">
                 <div class="flex justify-between items-start">
-                  <span class="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-[#c5a880]/20 text-[#c5a880] border border-[#c5a880]/30 font-sans">
-                    Dignified Arrangements
+                  <span class="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-[#c5a880]/20 text-[#c5a880] border border-[#c5a880]/30 font-sans" id="mobile-logged-in-user">
+                    Welcome, Maria
                   </span>
                   <span class="text-[10px] px-2 py-0.5 bg-emerald-950 text-emerald-300 rounded border border-emerald-800 flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Transparent Pricing
@@ -787,6 +794,409 @@
     </section>
 
     <!-- ========================================== -->
+    <!-- VIEW CONTAINER: COUNSELOR WORKSPACE        -->
+    <!-- ========================================== -->
+    <section id="role-counselor-container" class="w-full flex-col max-w-7xl transition-all duration-300 hidden">
+      <!-- Counselor Top Header & Banner -->
+      <div class="mb-5 p-5 rounded-3xl bg-gradient-to-r from-indigo-950/60 via-[#1b222c] to-slate-900 border border-indigo-700/40 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-center space-x-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-amber-200 p-0.5 shadow-lg flex items-center justify-center shrink-0">
+            <div class="w-full h-full bg-[#12161f] rounded-[14px] flex items-center justify-center text-indigo-300">
+              <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="font-serif text-lg font-bold text-white tracking-wide">Family Care Counselor Portal</h2>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-semibold uppercase">3rd Increment Milestone</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-0.5">Compassionate Family Intake &bull; Memorial Planning &bull; Director Endorsement Gateway</p>
+          </div>
+        </div>
+
+        <!-- 3-Role Cycle Roadmap Pill -->
+        <div class="hidden lg:flex items-center space-x-2 bg-slate-950/60 border border-slate-800 px-3.5 py-2 rounded-2xl text-[11px]">
+          <span class="text-slate-400">Step 1: Family Inquires</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-indigo-400"></i>
+          <span class="font-bold text-indigo-300 bg-indigo-950/80 px-2 py-0.5 rounded border border-indigo-700">Step 2: Counselor Endorses</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-500"></i>
+          <span class="text-slate-400">Step 3: Director Approves</span>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="openEndorsementModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:brightness-110 text-white font-bold text-xs flex items-center space-x-1.5 shadow-lg transition">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>New Plan Endorsement</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Counselor Metrics Row -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-5">
+        <div class="p-4 rounded-2xl glass-card border border-indigo-900/40">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span>Client Inquiries & Intake</span>
+            <i data-lucide="users" class="w-4 h-4 text-indigo-400"></i>
+          </div>
+          <div id="stat-counselor-inquiries" class="text-2xl font-bold font-mono text-white mt-2">0</div>
+          <div class="text-[11px] text-indigo-300/80 mt-1 flex items-center gap-1">
+            <i data-lucide="heart" class="w-3 h-3"></i> Compassionate care pipeline
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl glass-card border border-amber-900/40">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span>Pending Director Approval</span>
+            <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i>
+          </div>
+          <div id="stat-counselor-pending-director" class="text-2xl font-bold font-mono text-amber-300 mt-2">0</div>
+          <div class="text-[11px] text-amber-300/80 mt-1">Awaiting Director Vance review</div>
+        </div>
+
+        <div class="p-4 rounded-2xl glass-card border border-emerald-900/40">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span>Approved & Contract Issued</span>
+            <i data-lucide="award" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div id="stat-counselor-approved" class="text-2xl font-bold font-mono text-emerald-400 mt-2">0</div>
+          <div class="text-[11px] text-emerald-300/80 mt-1">Official certificate released</div>
+        </div>
+
+        <div class="p-4 rounded-2xl glass-card border border-slate-800">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span>Consultations Scheduled</span>
+            <i data-lucide="calendar" class="w-4 h-4 text-[#c5a880]"></i>
+          </div>
+          <div id="stat-counselor-consultations" class="text-2xl font-bold font-mono text-[#c5a880] mt-2">0</div>
+          <div class="text-[11px] text-slate-400 mt-1">Chapel tour & video calls</div>
+        </div>
+      </div>
+
+      <!-- Counselor Functional Tabs Navigation -->
+      <div class="border-b border-slate-800 flex items-center justify-between pb-3">
+        <div class="flex flex-wrap gap-2 text-xs">
+          <button id="counselor-nav-pipeline" onclick="setCounselorTab('pipeline')" class="counselor-tab active px-3.5 py-2 rounded-xl font-semibold bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 flex items-center space-x-1.5">
+            <i data-lucide="clipboard-list" class="w-4 h-4 text-indigo-400"></i>
+            <span>Intake & Endorsements</span>
+          </button>
+          <button id="counselor-nav-calculator" onclick="setCounselorTab('calculator')" class="counselor-tab px-3.5 py-2 rounded-xl font-semibold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center space-x-1.5">
+            <i data-lucide="calculator" class="w-4 h-4 text-[#c5a880]"></i>
+            <span>Pre-Need Payment Calculator</span>
+          </button>
+          <button id="counselor-nav-scheduler" onclick="setCounselorTab('scheduler')" class="counselor-tab px-3.5 py-2 rounded-xl font-semibold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center space-x-1.5">
+            <i data-lucide="calendar-plus" class="w-4 h-4 text-emerald-400"></i>
+            <span>Consultation Scheduler</span>
+          </button>
+          <button id="counselor-nav-guides" onclick="setCounselorTab('guides')" class="counselor-tab px-3.5 py-2 rounded-xl font-semibold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center space-x-1.5">
+            <i data-lucide="book-open" class="w-4 h-4 text-blue-400"></i>
+            <span>Rites & Grief Resources</span>
+          </button>
+        </div>
+
+        <button onclick="openEndorsementModal()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl flex items-center space-x-1.5 shadow">
+          <i data-lucide="file-plus" class="w-3.5 h-3.5"></i>
+          <span>Create Endorsement</span>
+        </button>
+      </div>
+
+      <!-- TAB 1: INTAKE & ENDORSEMENTS QUEUE -->
+      <div id="counselor-tab-pipeline" class="py-4 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-[#1b222c] p-3 rounded-2xl border border-slate-800">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+            <input id="counselor-search-pipeline" oninput="renderCounselorPipeline()" type="text" placeholder="Search family name, notes, or endorsement ID..." class="text-xs px-3 py-1.5 rounded-lg glass-input w-64">
+          </div>
+          <div class="flex items-center space-x-2">
+            <select id="counselor-filter-status" onchange="renderCounselorPipeline()" class="text-xs px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">
+              <option value="all">All Endorsement Statuses</option>
+              <option value="endorsed">Endorsed for Director Approval</option>
+              <option value="needs_review">Needs Counselor Intake</option>
+              <option value="confirmed">Confirmed / Contract Issued</option>
+              <option value="revision_requested">Director Requested Revision</option>
+            </select>
+            <button onclick="renderCounselorPipeline()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs flex items-center gap-1">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- Endorsement Pipeline Table -->
+        <div class="bg-[#161a22] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-[#1c222c] text-slate-400 border-b border-slate-800 font-medium">
+                <tr>
+                  <th class="px-4 py-3">Endorsement ID</th>
+                  <th class="px-4 py-3">Client / Family</th>
+                  <th class="px-4 py-3">Service Package & Chapel</th>
+                  <th class="px-4 py-3">Rites & Intake Care Notes</th>
+                  <th class="px-4 py-3">Financial Terms</th>
+                  <th class="px-4 py-3">Cycle Status</th>
+                  <th class="px-4 py-3 text-right">Counselor Action</th>
+                </tr>
+              </thead>
+              <tbody id="counselor-pipeline-tbody" class="divide-y divide-slate-800">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: PRE-NEED PAYMENT CALCULATOR -->
+      <div id="counselor-tab-calculator" class="py-4 space-y-4 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Calculator Controls -->
+          <div class="lg:col-span-1 p-5 rounded-2xl glass-card border border-slate-800 space-y-4">
+            <div class="border-b border-slate-800 pb-3">
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="calculator" class="w-4 h-4 text-[#c5a880]"></i> Flexible Financing Tool
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">Simulate transparent amortization, spot cash discounts, and subsidized family rates.</p>
+            </div>
+
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Base Plan Package</label>
+              <select id="calc-package-select" onchange="runAmortizationCalculator()" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                <!-- Options populated -->
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Payment Term / Mode</label>
+              <select id="calc-term-select" onchange="runAmortizationCalculator()" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                <option value="spot_cash">Spot Cash (10% Immediate Full Payment Discount)</option>
+                <option value="12" selected>12 Months Installment (0% Interest)</option>
+                <option value="24">24 Months Installment (3.5% Annual Protective Buffer)</option>
+                <option value="36">36 Months Installment (5.0% Annual Protective Buffer)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Memorial Care Subsidy / Discount (₱)</label>
+              <input type="number" id="calc-subsidy-input" value="0" min="0" step="500" oninput="runAmortizationCalculator()" class="w-full text-xs p-2.5 rounded-xl glass-input" placeholder="e.g. 5000">
+              <span class="text-[10px] text-slate-500">Apply senior citizen, indigent fund, or counselor privilege allowance.</span>
+            </div>
+
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Custom Down Payment (₱)</label>
+              <input type="number" id="calc-downpayment-input" value="10000" min="0" step="1000" oninput="runAmortizationCalculator()" class="w-full text-xs p-2.5 rounded-xl glass-input">
+            </div>
+
+            <button onclick="applyCalculatedTermsToEndorsementModal()" class="w-full py-2.5 rounded-xl bg-[#c5a880] hover:bg-[#b8a189] text-[#101216] font-bold text-xs uppercase tracking-wider shadow transition flex items-center justify-center space-x-1.5">
+              <i data-lucide="arrow-right-circle" class="w-4 h-4"></i>
+              <span>Transfer to Endorsement Form</span>
+            </button>
+          </div>
+
+          <!-- Amortization Breakdown Card -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="p-6 rounded-3xl bg-gradient-to-br from-[#18202d] to-[#12161f] border border-[#c5a880]/40 shadow-2xl space-y-5">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-[#c5a880]">Everloom Compassionate Finance</span>
+                  <h4 class="text-base font-bold text-white mt-0.5" id="calc-result-plan-title">Serenity Classic Package</h4>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-slate-400">Total Effective Cost</span>
+                  <div id="calc-result-total-cost" class="font-mono text-xl font-black text-amber-300">₱45,000.00</div>
+                </div>
+              </div>
+
+              <!-- Metrics in Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+                  <div class="text-[10px] text-slate-400">Term Selected</div>
+                  <div id="calc-disp-term" class="font-bold text-white mt-1 text-sm">12 Months</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+                  <div class="text-[10px] text-slate-400">Down Payment</div>
+                  <div id="calc-disp-down" class="font-mono font-bold text-emerald-400 mt-1 text-sm">₱10,000.00</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+                  <div class="text-[10px] text-slate-400">Discounts Applied</div>
+                  <div id="calc-disp-discount" class="font-mono font-bold text-[#c5a880] mt-1 text-sm">₱0.00</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-indigo-950/70 border border-indigo-700/60">
+                  <div class="text-[10px] text-indigo-300 font-semibold">Monthly Amortization</div>
+                  <div id="calc-disp-monthly" class="font-mono font-black text-indigo-200 mt-1 text-base">₱2,916.67</div>
+                </div>
+              </div>
+
+              <!-- Detailed Summary Table -->
+              <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2 text-xs">
+                <div class="flex justify-between text-slate-400">
+                  <span>Gross Package Rate:</span>
+                  <span id="calc-row-gross" class="font-mono text-slate-200">₱45,000.00</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Counselor Subsidy / Allowance:</span>
+                  <span id="calc-row-subsidy" class="font-mono text-emerald-400">- ₱0.00</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Spot Cash Discount (10% if applicable):</span>
+                  <span id="calc-row-cash-discount" class="font-mono text-emerald-400">- ₱0.00</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Financing / Inflation Buffer:</span>
+                  <span id="calc-row-buffer" class="font-mono text-slate-300">+ ₱0.00</span>
+                </div>
+                <div class="flex justify-between border-t border-slate-800 pt-2 font-bold text-white text-sm">
+                  <span>Net Amortizable Balance:</span>
+                  <span id="calc-row-balance" class="font-mono text-amber-300">₱35,000.00</span>
+                </div>
+              </div>
+
+              <div class="text-[11px] text-slate-400 italic">
+                * All Everloom Pre-Need installments include guaranteed inflation protection, transferred memorial eligibility, and assignable family coverage.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: CONSULTATION SCHEDULER -->
+      <div id="counselor-tab-scheduler" class="py-4 space-y-4 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Booking Form -->
+          <div class="p-5 rounded-2xl glass-card border border-slate-800 space-y-4">
+            <div class="border-b border-slate-800 pb-3">
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="calendar-plus" class="w-4 h-4 text-emerald-400"></i> Schedule Family Consultation
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">Book an in-person chapel walk-through or a compassionate video consultation with grieving families.</p>
+            </div>
+
+            <form id="form-counselor-consultation" onsubmit="handleScheduleConsultation(event)" class="space-y-3 text-xs">
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Family Client Name *</label>
+                <input type="text" id="consult-client-name" required placeholder="e.g. Maria Santos" class="w-full text-xs p-2.5 rounded-xl glass-input">
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Contact Phone / Email *</label>
+                <input type="text" id="consult-contact" required placeholder="e.g. +63 917 123 4567" class="w-full text-xs p-2.5 rounded-xl glass-input">
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-slate-300 font-semibold mb-1">Preferred Date *</label>
+                  <input type="date" id="consult-date" required class="w-full text-xs p-2.5 rounded-xl glass-input">
+                </div>
+                <div>
+                  <label class="block text-slate-300 font-semibold mb-1">Time Slot *</label>
+                  <select id="consult-time" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                    <option value="09:00 AM">09:00 AM - 10:00 AM</option>
+                    <option value="11:00 AM">11:00 AM - 12:00 PM</option>
+                    <option value="02:00 PM" selected>02:00 PM - 03:00 PM</option>
+                    <option value="04:00 PM">04:00 PM - 05:00 PM</option>
+                    <option value="07:00 PM">07:00 PM - 08:00 PM</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Consultation Medium</label>
+                <select id="consult-medium" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                  <option value="In-Person Chapel Tour">In-Person Chapel Walkthrough & Sanctuary Tour</option>
+                  <option value="Video Conference (Google Meet)">Compassionate Video Conference (Tele-counseling)</option>
+                  <option value="Home Visit">In-Home Counselor Pastoral Visit</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Initial Family Notes / Questions</label>
+                <textarea id="consult-notes" rows="2" placeholder="e.g. Inquiring about Catholic wake rituals, needs installment options..." class="w-full text-xs p-2.5 rounded-xl glass-input"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow transition">
+                Confirm & Add Consultation
+              </button>
+            </form>
+          </div>
+
+          <!-- Active Scheduled Consultations List -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <i data-lucide="clock" class="w-4 h-4 text-[#c5a880]"></i> Upcoming Family Consultations
+                </h4>
+                <p class="text-xs text-slate-400">Scheduled compassionate planning sessions.</p>
+              </div>
+              <span id="consultations-count-badge" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-[#c5a880] border border-slate-700 text-xs font-mono font-bold">0 Booked</span>
+            </div>
+
+            <div id="counselor-consultations-list" class="space-y-3">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: RITES & GRIEF SUPPORT GUIDES -->
+      <div id="counselor-tab-guides" class="py-4 space-y-4 hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Catholic Guide -->
+          <div class="p-4 rounded-2xl glass-card border border-slate-800 space-y-3">
+            <div class="flex items-center space-x-2 text-indigo-400">
+              <i data-lucide="cross" class="w-5 h-5"></i>
+              <h4 class="font-bold text-white text-sm">Catholic Traditional Rites</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Includes Vigil Service (Wake), Funeral Mass in consecrated parish, and Rite of Committal at gravesite. Rosary prayer leader coordination and holy water sprinkling.
+            </p>
+            <div class="text-[10px] text-slate-400 border-t border-slate-800 pt-2 font-mono">
+              Typical duration: 3 to 5 wake days
+            </div>
+          </div>
+
+          <!-- Christian / Evangelical Guide -->
+          <div class="p-4 rounded-2xl glass-card border border-slate-800 space-y-3">
+            <div class="flex items-center space-x-2 text-blue-400">
+              <i data-lucide="book" class="w-5 h-5"></i>
+              <h4 class="font-bold text-white text-sm">Christian Memorial Service</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Focuses on celebration of eternal life, scripture reading, worship hymns, and eulogy sharing. Accommodates acoustic worship setup and pastor honoring message.
+            </p>
+            <div class="text-[10px] text-slate-400 border-t border-slate-800 pt-2 font-mono">
+              Typical duration: 2 to 4 wake days
+            </div>
+          </div>
+
+          <!-- Buddhist / Eastern Guide -->
+          <div class="p-4 rounded-2xl glass-card border border-slate-800 space-y-3">
+            <div class="flex items-center space-x-2 text-amber-400">
+              <i data-lucide="sun" class="w-5 h-5"></i>
+              <h4 class="font-bold text-white text-sm">Buddhist / Taoist Rites</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Chanting sessions led by Monks, incense altar arrangement, vegetarian food catering, and merits transfer rituals. White and yellow floral arrangements customary.
+            </p>
+            <div class="text-[10px] text-slate-400 border-t border-slate-800 pt-2 font-mono">
+              Typical duration: 3 to 7 wake days
+            </div>
+          </div>
+
+          <!-- Non-Denominational Guide -->
+          <div class="p-4 rounded-2xl glass-card border border-slate-800 space-y-3">
+            <div class="flex items-center space-x-2 text-emerald-400">
+              <i data-lucide="feather" class="w-5 h-5"></i>
+              <h4 class="font-bold text-white text-sm">Celebration of Life</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Secular, personalized tribute focused on the loved one's passions, video memorial slideshow, custom music playlist, and storytelling circle for friends and family.
+            </p>
+            <div class="text-[10px] text-slate-400 border-t border-slate-800 pt-2 font-mono">
+              Flexible chapel duration: 1 to 3 days
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
     <!-- VIEW CONTAINER: ADMIN WEBPAGE PORTAL       -->
     <!-- ========================================== -->
     <section id="role-admin-container" class="w-full flex-col max-w-7xl transition-all duration-300 hidden">
@@ -838,6 +1248,11 @@
           <button id="admin-nav-reservations" onclick="setAdminTab('reservations')" class="admin-tab active px-3 py-2 rounded-xl font-semibold bg-[#c5a880]/20 text-[#c5a880] border border-[#c5a880]/40 flex items-center space-x-1.5">
             <i data-lucide="calendar-check" class="w-4 h-4"></i>
             <span>Reservations</span>
+          </button>
+          <button id="admin-nav-endorsements" onclick="setAdminTab('endorsements')" class="admin-tab px-3 py-2 rounded-xl font-semibold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center space-x-1.5" title="Counselor Intake Notes & Approval Review Queue">
+            <i data-lucide="clipboard-check" class="w-4 h-4 text-amber-400"></i>
+            <span>Counselor Endorsements</span>
+            <span id="admin-endorsements-badge" class="ml-1 px-1.5 py-0.2 rounded-full text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">1</span>
           </button>
           <button id="admin-nav-users" onclick="setAdminTab('users')" class="admin-tab px-3 py-2 rounded-xl font-semibold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center space-x-1.5" title="User CRUD, Activation, Lock/Unlock & Roles">
             <i data-lucide="users" class="w-4 h-4"></i>
@@ -930,6 +1345,46 @@
               </thead>
               <tbody id="admin-reservations-tbody" class="divide-y divide-slate-800">
                 <!-- Dynamically loaded from Supabase -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB CONTENT: COUNSELOR ENDORSEMENTS & APPROVALS QUEUE (3RD INCREMENT) -->
+      <div id="admin-tab-endorsements" class="py-4 space-y-4 hidden">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-gradient-to-r from-amber-950/40 via-slate-900 to-indigo-950/40 p-4 rounded-2xl border border-amber-600/40">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">3rd Increment Milestone</span>
+              <span class="text-xs font-bold text-white">Counselor Intake &bull; Director Final Approval Queue</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+              Family care counselors submit personalized intake assessments, grief support notes, and customized payment terms. 
+              The <strong>Memorial Director</strong> reviews notes and verifies chapel availability to grant final confirmation & issue the official contract.
+            </p>
+          </div>
+          <button onclick="renderAdminEndorsements()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium flex items-center gap-1.5 border border-slate-700 shrink-0">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-[#c5a880]"></i> Refresh Queue
+          </button>
+        </div>
+
+        <div class="bg-[#161a22] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-[#1c222c] text-slate-400 border-b border-slate-800 font-medium">
+                <tr>
+                  <th class="px-4 py-3">Endorsement Ref</th>
+                  <th class="px-4 py-3">Client & Loved One</th>
+                  <th class="px-4 py-3">Plan / Chapel</th>
+                  <th class="px-4 py-3">Counselor Notes & Intake Rites</th>
+                  <th class="px-4 py-3">Financing Plan</th>
+                  <th class="px-4 py-3">Status</th>
+                  <th class="px-4 py-3 text-right">Director Decision</th>
+                </tr>
+              </thead>
+              <tbody id="admin-endorsements-tbody" class="divide-y divide-slate-800">
+                <!-- Dynamically loaded -->
               </tbody>
             </table>
           </div>
@@ -1218,6 +1673,206 @@
     </section>
 
   </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: COUNSELOR INTAKE & PLAN ENDORSEMENT SUBMISSION (3RD INCREMENT)      -->
+  <!-- ========================================================================= -->
+  <div id="modal-counselor-endorsement" class="fixed inset-0 z-[85] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="w-full max-w-2xl bg-[#171c24] border border-indigo-500/50 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+      
+      <div class="flex items-start justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 flex items-center justify-center">
+            <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400">Transaction Cycle &bull; Step 2</span>
+            <h3 class="text-base font-bold text-white mt-0.5">Family Care Counselor Endorsement Form</h3>
+            <p class="text-xs text-slate-400">Compile family intake assessment notes and recommend financing terms for Director final approval.</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-counselor-endorsement')" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <form id="form-counselor-endorsement" onsubmit="handleCounselorEndorsementSubmit(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="endorse-source-res-id" value="">
+
+        <!-- Step A: Client & Family Background -->
+        <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+          <div class="font-bold text-indigo-300 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+            <i data-lucide="user-check" class="w-3.5 h-3.5"></i> Section 1: Client & Family Demographics
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Client / Family Representative Name *</label>
+              <input type="text" id="endorse-client-name" required placeholder="e.g. Maria Clara Santos" class="w-full text-xs p-2.5 rounded-xl glass-input">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Direct Phone Contact *</label>
+              <input type="text" id="endorse-contact" required placeholder="e.g. +63 917 888 2345" class="w-full text-xs p-2.5 rounded-xl glass-input">
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Name of Honored Loved One (or Plan Beneficiary)</label>
+              <input type="text" id="endorse-deceased-name" placeholder="e.g. Juan Santos (or Self for Pre-Need)" class="w-full text-xs p-2.5 rounded-xl glass-input">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Target Memorial / Viewing Date *</label>
+              <input type="date" id="endorse-schedule-date" required class="w-full text-xs p-2.5 rounded-xl glass-input">
+            </div>
+          </div>
+        </div>
+
+        <!-- Step B: Grief Support & Ritual Assessment -->
+        <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+          <div class="font-bold text-amber-300 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+            <i data-lucide="heart" class="w-3.5 h-3.5"></i> Section 2: Grief Care & Cultural / Religious Intake
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Religious / Cultural Tradition *</label>
+              <select id="endorse-faith-tradition" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                <option value="Roman Catholic" selected>Roman Catholic (Vigil, Mass, Rosary)</option>
+                <option value="Christian / Evangelical">Christian / Evangelical (Celebration of Life)</option>
+                <option value="Buddhist / Taoist">Buddhist / Taoist (Incense, Monks, Chanting)</option>
+                <option value="Iglesia ni Cristo">Iglesia ni Cristo Traditional Wake</option>
+                <option value="Non-denominational">Non-denominational / Secular Tribute</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Family Emotional Support Need</label>
+              <select id="endorse-emotional-state" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                <option value="High Compassion Required (Recent sudden loss)">High Compassion (Sudden loss)</option>
+                <option value="Calm & Reassured (Prepared family)" selected>Calm & Reassured (Prepared family)</option>
+                <option value="Anticipatory Grief Support">Anticipatory Grief Support</option>
+                <option value="Requires Pastor/Priest Referral">Requires Pastor/Priest Referral</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Document Status</label>
+              <select id="endorse-docs-status" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                <option value="Death Certificate Verified (Complete)" selected>Death Cert Verified (Complete)</option>
+                <option value="Valid Govt IDs Verified">Valid Govt IDs Verified</option>
+                <option value="Pre-Need Enrollment Signed">Pre-Need Enrollment Signed</option>
+                <option value="Pending Hospital Release Papers">Pending Hospital Papers</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Counselor Family Assessment Notes & Special Wishes *</label>
+            <textarea id="endorse-counselor-notes" rows="3" required placeholder="Write personalized counselor findings: e.g. Family requests white lilies, Catholic evening rosary leader, 2nd floor chapel access for elderly grandmother, and compassionate payment amortization." class="w-full text-xs p-2.5 rounded-xl glass-input"></textarea>
+          </div>
+        </div>
+
+        <!-- Step C: Package, Chapel & Financing Terms -->
+        <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+          <div class="font-bold text-[#c5a880] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+            <i data-lucide="layers" class="w-3.5 h-3.5"></i> Section 3: Recommended Plan & Financing Structure
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Memorial Package Bundle *</label>
+              <select id="endorse-package-select" onchange="calculateEndorsementSummary()" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                <!-- Loaded dynamically -->
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Assigned Viewing Chapel</label>
+              <select id="endorse-room-select" onchange="calculateEndorsementSummary()" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                <!-- Loaded dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Approved Payment Terms</label>
+              <select id="endorse-terms-select" onchange="calculateEndorsementSummary()" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                <option value="Spot Cash (10% Discount)">Spot Cash (10% Discount)</option>
+                <option value="12-Month Installment (0% Interest)" selected>12-Month Installment (0% Interest)</option>
+                <option value="24-Month Installment (3.5% Buffer)">24-Month Installment (3.5% Buffer)</option>
+                <option value="36-Month Installment (5.0% Buffer)">36-Month Installment (5.0% Buffer)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Counselor Subsidy / Discount (₱)</label>
+              <input type="number" id="endorse-subsidy" value="0" min="0" step="500" oninput="calculateEndorsementSummary()" class="w-full text-xs p-2.5 rounded-xl glass-input">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Down Payment / Initial Deposit (₱)</label>
+              <input type="number" id="endorse-downpayment" value="10000" min="0" step="1000" oninput="calculateEndorsementSummary()" class="w-full text-xs p-2.5 rounded-xl glass-input">
+            </div>
+          </div>
+
+          <!-- Live Cost Preview -->
+          <div class="p-3 bg-slate-950/90 rounded-2xl border border-slate-800 space-y-1.5">
+            <div class="flex justify-between text-slate-400">
+              <span>Base Package + Chapel Total:</span>
+              <span id="endorse-summary-base" class="font-mono text-slate-200">₱0.00</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Subsidy / Cash Discount Applied:</span>
+              <span id="endorse-summary-discount" class="font-mono text-emerald-400">- ₱0.00</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Estimated Monthly Amortization:</span>
+              <span id="endorse-summary-monthly" class="font-mono text-indigo-300 font-bold">₱0.00 / mo</span>
+            </div>
+            <div class="flex justify-between border-t border-slate-800 pt-1.5 font-bold text-white text-sm">
+              <span>Final Recommended Total:</span>
+              <span id="endorse-summary-total" class="font-mono text-amber-300">₱0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submission Actions -->
+        <div class="flex items-center space-x-2 pt-2">
+          <button type="button" onclick="closeModal('modal-counselor-endorsement')" class="flex-1 py-2.5 rounded-xl bg-slate-800 text-slate-300 font-semibold hover:bg-slate-700 transition">
+            Cancel
+          </button>
+          <button type="submit" id="endorse-submit-btn" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-[#c5a880] text-white font-bold text-xs uppercase tracking-wider hover:brightness-110 shadow-lg transition flex items-center justify-center space-x-1.5">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Submit for Director Approval</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: DIRECTOR REVISION REQUEST (IN-SYSTEM DIALOG - NO BROWSER PROMPTS)   -->
+  <!-- ========================================================================= -->
+  <div id="modal-director-revision" class="fixed inset-0 z-[90] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="w-full max-w-md bg-[#171c24] border border-amber-600/50 rounded-3xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center">
+          <i data-lucide="message-square" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Request Plan Revision</h3>
+          <p class="text-xs text-slate-400">Return endorsement to counselor with specific revision feedback.</p>
+        </div>
+      </div>
+
+      <input type="hidden" id="revision-target-id" value="">
+
+      <div>
+        <label class="block text-slate-300 font-semibold mb-1 text-xs">Director Vance's Feedback & Instructions *</label>
+        <textarea id="director-feedback-text" rows="3" required placeholder="e.g. Please verify Chapel St. Jude afternoon cleaning schedule with sanitation team, or apply senior citizen 20% discount on casket." class="w-full text-xs p-2.5 rounded-xl glass-input"></textarea>
+      </div>
+
+      <div class="flex items-center space-x-2 pt-2">
+        <button type="button" onclick="closeModal('modal-director-revision')" class="flex-1 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 text-xs font-semibold">
+          Cancel
+        </button>
+        <button type="button" onclick="submitDirectorRevisionRequest()" class="flex-1 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs uppercase shadow">
+          Send Revision Request
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- ========================================================================= -->
   <!-- MODAL: GENERATIVE MEMORIAL RECEIPT & CERTIFICATE (/generative_ui)         -->
@@ -1795,16 +2450,83 @@
     const DEFAULT_SYSTEM_USERS = [
       { id: "usr_client_01", full_name: "Maria Santos", email: "client@everloom.com", role: "client", status: "active", failed_attempts: 0, lockout_until: null, created_at: "2026-10-27T03:42:37.045Z" },
       { id: "usr_admin_01", full_name: "Director Arthur Vance", email: "director@everloom.com", role: "admin", status: "active", failed_attempts: 0, lockout_until: null, created_at: "2026-10-27T03:42:58.741Z" },
-      { id: "usr_counselor_01", full_name: "Elena Rostova (Counselor)", email: "counselor@everloom.com", role: "admin", status: "active", failed_attempts: 0, lockout_until: null, created_at: "2026-10-27T03:43:10.708Z" },
+      { id: "usr_counselor_01", full_name: "Elena Rostova (Counselor)", email: "counselor@everloom.com", role: "counselor", status: "active", failed_attempts: 0, lockout_until: null, created_at: "2026-10-27T03:43:10.708Z" },
       { id: "usr_teller_01", full_name: "Gabriel Lee (Memorial Cashier)", email: "teller@everloom.com", role: "admin", status: "active", failed_attempts: 0, lockout_until: null, created_at: "2026-10-27T03:43:47.316Z" }
+    ];
+
+    // Seeded initial reservations with a Counselor Endorsement demonstrating 3rd Increment
+    const DEFAULT_RESERVATIONS = [
+      {
+        id: "res_endorse_001",
+        client_name: "Victoria Mendoza",
+        contact_number: "+63 917 554 9821",
+        service_type: "pre-need",
+        package_id: "077d833d-1296-4214-b3d5-f1cf31ee3027",
+        room_id: "f388e9d2-9d0f-4cb9-88db-e753ac639da8",
+        deceased_name: "Eduardo Mendoza (Father)",
+        schedule_date: "2026-11-15",
+        total_amount: 85000,
+        status: "endorsed",
+        notes: "Family requests Roman Catholic evening rosary leader and 12-month installment plan.",
+        counselor_endorsement: {
+          endorsed_by: "Elena Rostova (Counselor)",
+          endorsed_at: "2026-10-27 10:45:00",
+          faith_tradition: "Roman Catholic",
+          emotional_state: "Calm & Reassured (Prepared family)",
+          docs_status: "Death Certificate Verified (Complete)",
+          counselor_notes: "Completed compassionate family intake. Validated documents and applied 12-month installment with 0% interest. Recommended Chapel St. Jude. Endorsed for Director Vance final approval & contract issuance.",
+          payment_terms: "12-Month Installment (0% Interest)",
+          subsidy_amount: 5000,
+          downpayment_amount: 15000,
+          monthly_amortization: 5416.67,
+          director_feedback: null
+        },
+        created_at: "2026-10-27T02:45:00.000Z"
+      },
+      {
+        id: "res_initial_002",
+        client_name: "Maria Santos",
+        contact_number: "+63 917 123 4567",
+        service_type: "immediate",
+        package_id: "af81ff38-6cd5-40ba-85e6-5c702c06871b",
+        room_id: "f388e9d2-9d0f-4cb9-88db-e753ac639da8",
+        deceased_name: "Juan Santos",
+        schedule_date: "2026-11-02",
+        total_amount: 45000,
+        status: "confirmed",
+        notes: "Catholic vigil arrangements with white floral stands.",
+        created_at: "2026-10-26T08:30:00.000Z"
+      }
     ];
 
     // Local / Session Store Data
     let currentUser = JSON.parse(localStorage.getItem('everloom_active_user')) || null;
     let appPackages = JSON.parse(localStorage.getItem('everloom_packages')) || DEFAULT_PACKAGES;
     let appRooms = JSON.parse(localStorage.getItem('everloom_rooms')) || DEFAULT_ROOMS;
-    let appReservations = JSON.parse(localStorage.getItem('everloom_reservations')) || [];
+    let appReservations = JSON.parse(localStorage.getItem('everloom_reservations')) || DEFAULT_RESERVATIONS;
     let appSystemUsers = JSON.parse(localStorage.getItem('everloom_system_users')) || DEFAULT_SYSTEM_USERS;
+    let appCounselorConsultations = JSON.parse(localStorage.getItem('everloom_counselor_consultations')) || [
+      {
+        id: "cns_01",
+        client_name: "Victoria Mendoza",
+        contact: "+63 917 554 9821",
+        date: "2026-10-29",
+        time: "02:00 PM - 03:00 PM",
+        medium: "In-Person Chapel Walkthrough & Sanctuary Tour",
+        notes: "Touring Chapel St. Jude and reviewing Catholic rosary prayer setup.",
+        counselor: "Elena Rostova (Counselor)"
+      },
+      {
+        id: "cns_02",
+        client_name: "Carlos Dela Cruz",
+        contact: "+63 918 332 9901",
+        date: "2026-10-30",
+        time: "11:00 AM - 12:00 PM",
+        medium: "Compassionate Video Conference (Tele-counseling)",
+        notes: "Inquiring regarding pre-need cremation plan and 24-month amortization.",
+        counselor: "Elena Rostova (Counselor)"
+      }
+    ];
     let appSecurityLogs = JSON.parse(localStorage.getItem('everloom_security_logs')) || [
       { id: "log-1", timestamp: "2026-10-27 10:15:00", user: "system@everloom.com", action: "SYSTEM_INIT", module: "System", ip: "127.0.0.1", status: "SUCCESS" },
       { id: "log-2", timestamp: "2026-10-27 10:30:00", user: "director@everloom.com", action: "LOGIN_SUCCESS", module: "Authentication", ip: "192.168.1.101", status: "SUCCESS" }
@@ -3301,11 +4023,15 @@
 
       let userObj = systemUser;
       if (!userObj) {
+        let detectedRole = 'client';
+        if (email.includes('director') || email.includes('admin')) detectedRole = 'admin';
+        else if (email.includes('counselor')) detectedRole = 'counselor';
+
         userObj = {
           id: 'usr_' + Date.now(),
           full_name: email.split('@')[0],
           email: email,
-          role: email.includes('director') || email.includes('admin') ? 'admin' : 'client',
+          role: detectedRole,
           status: 'active'
         };
       }
@@ -3447,24 +4173,38 @@
 
       // Requirement A: Users must access only the pages/UI allowed for their role
       const navBtnAdmin = document.getElementById('nav-btn-admin');
+      const navBtnCounselor = document.getElementById('nav-btn-counselor');
       const navBtnSplit = document.getElementById('nav-btn-split');
       const mobileSwitchBtn = document.getElementById('mobile-portal-switch-btn');
 
       if (user.role === 'admin') {
         if (navBtnAdmin) navBtnAdmin.classList.remove('hidden');
+        if (navBtnCounselor) navBtnCounselor.classList.remove('hidden');
         if (navBtnSplit) navBtnSplit.classList.remove('hidden');
         if (mobileSwitchBtn) mobileSwitchBtn.classList.remove('hidden');
+        if (roleBadge) roleBadge.textContent = 'Memorial Director';
         switchRole('admin');
+      } else if (user.role === 'counselor') {
+        if (navBtnCounselor) navBtnCounselor.classList.remove('hidden');
+        if (navBtnAdmin) navBtnAdmin.classList.remove('hidden'); // allow director approval testing
+        if (navBtnSplit) navBtnSplit.classList.remove('hidden');
+        if (mobileSwitchBtn) mobileSwitchBtn.classList.remove('hidden');
+        if (roleBadge) roleBadge.textContent = 'Family Care Counselor';
+        switchRole('counselor');
       } else {
         // Regular clients cannot access Admin Portal pages
         if (navBtnAdmin) navBtnAdmin.classList.add('hidden');
+        if (navBtnCounselor) navBtnCounselor.classList.remove('hidden'); // counselor option available or switchable
         if (navBtnSplit) navBtnSplit.classList.add('hidden');
         if (mobileSwitchBtn) mobileSwitchBtn.classList.add('hidden');
+        if (roleBadge) roleBadge.textContent = 'Family Client';
         switchRole('mobile');
       }
 
       initSessionInactivityTracker();
       renderMyReservations();
+      renderCounselorPipeline();
+      renderAdminEndorsements();
       lucide.createIcons();
     }
 
@@ -3610,34 +4350,58 @@
       currentRole = role;
       const mobCont = document.getElementById('role-mobile-container');
       const admCont = document.getElementById('role-admin-container');
+      const cnsCont = document.getElementById('role-counselor-container');
       const btnMob = document.getElementById('nav-btn-mobile');
       const btnAdm = document.getElementById('nav-btn-admin');
+      const btnCns = document.getElementById('nav-btn-counselor');
       const btnSplit = document.getElementById('nav-btn-split');
 
       // Reset buttons
-      [btnMob, btnAdm, btnSplit].forEach(b => {
+      [btnMob, btnAdm, btnCns, btnSplit].forEach(b => {
         if (!b) return;
         b.className = "flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800";
       });
 
       if (role === 'mobile') {
-        mobCont.classList.remove('hidden');
-        mobCont.className = 'w-full flex justify-center items-center py-2 transition-all duration-300';
-        admCont.classList.add('hidden');
-        btnMob.className = "flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-[#c5a880] text-[#121417] shadow-sm";
+        if (mobCont) {
+          mobCont.classList.remove('hidden');
+          mobCont.className = 'w-full flex justify-center items-center py-2 transition-all duration-300';
+        }
+        if (admCont) admCont.classList.add('hidden');
+        if (cnsCont) cnsCont.classList.add('hidden');
+        if (btnMob) btnMob.className = "flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-[#c5a880] text-[#121417] shadow-sm";
         showToast('Switched to Mobile Client View', 'info');
+      } else if (role === 'counselor') {
+        if (mobCont) mobCont.classList.add('hidden');
+        if (admCont) admCont.classList.add('hidden');
+        if (cnsCont) {
+          cnsCont.classList.remove('hidden');
+          cnsCont.className = 'w-full flex flex-col max-w-7xl transition-all duration-300';
+        }
+        if (btnCns) btnCns.className = "flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-indigo-600 text-white shadow-sm";
+        renderCounselorPipeline();
+        showToast('Switched to Family Care Counselor Portal', 'info');
       } else if (role === 'admin') {
-        mobCont.classList.add('hidden');
-        admCont.classList.remove('hidden');
-        admCont.className = 'w-full flex flex-col max-w-7xl transition-all duration-300';
-        btnAdm.className = "flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-[#c5a880] text-[#121417] shadow-sm";
+        if (mobCont) mobCont.classList.add('hidden');
+        if (cnsCont) cnsCont.classList.add('hidden');
+        if (admCont) {
+          admCont.classList.remove('hidden');
+          admCont.className = 'w-full flex flex-col max-w-7xl transition-all duration-300';
+        }
+        if (btnAdm) btnAdm.className = "flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-[#c5a880] text-[#121417] shadow-sm";
+        renderAdminEndorsements();
         showToast('Switched to Admin Management Portal', 'info');
       } else if (role === 'split') {
-        mobCont.classList.remove('hidden');
-        admCont.classList.remove('hidden');
-        mobCont.className = 'w-full lg:w-5/12 flex justify-center items-start py-2 transition-all duration-300';
-        admCont.className = 'w-full lg:w-7/12 flex flex-col transition-all duration-300';
-        btnSplit.className = "hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-[#c5a880] text-[#121417] shadow-sm";
+        if (mobCont) {
+          mobCont.classList.remove('hidden');
+          mobCont.className = 'w-full lg:w-5/12 flex justify-center items-start py-2 transition-all duration-300';
+        }
+        if (admCont) {
+          admCont.classList.remove('hidden');
+          admCont.className = 'w-full lg:w-7/12 flex flex-col transition-all duration-300';
+        }
+        if (cnsCont) cnsCont.classList.add('hidden');
+        if (btnSplit) btnSplit.className = "hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-[#c5a880] text-[#121417] shadow-sm";
         showToast('Dual Split View Activated', 'info');
       }
 
@@ -3669,7 +4433,7 @@
 
     // Admin Subtabs
     function setAdminTab(tabName) {
-      const tabs = ['reservations', 'users', 'logs', 'backup', 'rooms', 'packages', 'supabase'];
+      const tabs = ['reservations', 'endorsements', 'users', 'logs', 'backup', 'rooms', 'packages', 'supabase'];
       tabs.forEach(t => {
         const el = document.getElementById(`admin-tab-${t}`);
         const nav = document.getElementById(`admin-nav-${t}`);
@@ -3686,6 +4450,7 @@
         targetNav.className = "admin-tab active px-3 py-2 rounded-xl font-semibold bg-[#c5a880]/20 text-[#c5a880] border border-[#c5a880]/40 flex items-center space-x-1.5";
       }
 
+      if (tabName === 'endorsements') renderAdminEndorsements();
       if (tabName === 'users') renderAdminUsers();
       if (tabName === 'logs') renderSecurityLogTrail();
       if (tabName === 'backup') renderAdminBackups();
@@ -4021,6 +4786,28 @@
       if (pendingEl) pendingEl.textContent = appReservations.filter(r => r.status === 'pending').length;
       if (roomsEl) roomsEl.textContent = appRooms.filter(r => r.status === 'available').length;
       if (pkgsEl) pkgsEl.textContent = appPackages.length;
+
+      // Counselor metrics & Admin Endorsement Badge
+      const endorsedCount = appReservations.filter(r => r.status === 'endorsed').length;
+      const adminEndorseBadge = document.getElementById('admin-endorsements-badge');
+      if (adminEndorseBadge) {
+        adminEndorseBadge.textContent = endorsedCount;
+        adminEndorseBadge.className = endorsedCount > 0 ?
+          "ml-1 px-1.5 py-0.2 rounded-full text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse" :
+          "ml-1 px-1.5 py-0.2 rounded-full text-[9px] font-mono text-slate-500 bg-slate-800 border border-slate-700";
+      }
+
+      const cnsInquiriesEl = document.getElementById('stat-counselor-inquiries');
+      const cnsPendingDirEl = document.getElementById('stat-counselor-pending-director');
+      const cnsApprovedEl = document.getElementById('stat-counselor-approved');
+      const cnsConsultsEl = document.getElementById('stat-counselor-consultations');
+      const consultsBadge = document.getElementById('consultations-count-badge');
+
+      if (cnsInquiriesEl) cnsInquiriesEl.textContent = appReservations.length;
+      if (cnsPendingDirEl) cnsPendingDirEl.textContent = endorsedCount;
+      if (cnsApprovedEl) cnsApprovedEl.textContent = appReservations.filter(r => r.status === 'confirmed' || r.status === 'completed').length;
+      if (cnsConsultsEl) cnsConsultsEl.textContent = appCounselorConsultations.length;
+      if (consultsBadge) consultsBadge.textContent = `${appCounselorConsultations.length} Booked`;
     }
 
     // 7. BOOKING MODAL LOGIC
@@ -4284,6 +5071,725 @@
       const modal = document.getElementById('modal-generative-certificate');
       if (modal) modal.classList.remove('hidden');
       lucide.createIcons();
+    }
+
+    // =========================================================================
+    // 3RD INCREMENT: COUNSELOR WORKSPACE & REAL-LIFE FUNCTIONAL IMPLEMENTATION
+    // =========================================================================
+
+    // 1. Counselor Tab Navigation
+    function setCounselorTab(tabName) {
+      const tabs = ['pipeline', 'calculator', 'scheduler', 'guides'];
+      tabs.forEach(t => {
+        const el = document.getElementById(`counselor-tab-${t}`);
+        const nav = document.getElementById(`counselor-nav-${t}`);
+        if (el) el.classList.add('hidden');
+        if (nav) {
+          nav.className = "counselor-tab px-3.5 py-2 rounded-xl font-semibold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center space-x-1.5";
+        }
+      });
+
+      const targetTab = document.getElementById(`counselor-tab-${tabName}`);
+      const targetNav = document.getElementById(`counselor-nav-${tabName}`);
+      if (targetTab) targetTab.classList.remove('hidden');
+      if (targetNav) {
+        targetNav.className = "counselor-tab active px-3.5 py-2 rounded-xl font-semibold bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 flex items-center space-x-1.5";
+      }
+
+      if (tabName === 'pipeline') renderCounselorPipeline();
+      if (tabName === 'calculator') initCalculatorDropdowns();
+      if (tabName === 'scheduler') renderCounselorConsultations();
+
+      lucide.createIcons();
+    }
+
+    // 2. Render Counselor Pipeline / Endorsements Queue
+    function renderCounselorPipeline() {
+      const tbody = document.getElementById('counselor-pipeline-tbody');
+      if (!tbody) return;
+
+      const search = (document.getElementById('counselor-search-pipeline')?.value || '').toLowerCase();
+      const statusFilter = document.getElementById('counselor-filter-status')?.value || 'all';
+
+      const filtered = appReservations.filter(r => {
+        const notesText = (r.counselor_endorsement?.counselor_notes || r.notes || '').toLowerCase();
+        const matchesSearch = !search ||
+          (r.client_name || '').toLowerCase().includes(search) ||
+          (r.deceased_name || '').toLowerCase().includes(search) ||
+          notesText.includes(search) ||
+          (r.id || '').toLowerCase().includes(search);
+
+        let matchesStatus = true;
+        if (statusFilter === 'endorsed') matchesStatus = r.status === 'endorsed';
+        else if (statusFilter === 'needs_review') matchesStatus = r.status === 'pending';
+        else if (statusFilter === 'confirmed') matchesStatus = r.status === 'confirmed';
+        else if (statusFilter === 'revision_requested') matchesStatus = r.status === 'revision_requested';
+
+        return matchesSearch && matchesStatus;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="text-center py-8 text-slate-500 font-sans text-xs">
+              No family records matching filter. Click "New Plan Endorsement" to create counselor assessment.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(r => {
+        const pkg = appPackages.find(p => p.id === r.package_id);
+        const room = appRooms.find(rm => rm.id === r.room_id);
+        const pkgTitle = pkg ? pkg.title : 'Custom Package';
+        const roomTitle = room ? room.room_name : 'No Chapel Assigned';
+        const end = r.counselor_endorsement;
+
+        const isEndorsed = r.status === 'endorsed';
+        const isConfirmed = r.status === 'confirmed';
+        const isRevision = r.status === 'revision_requested';
+        const isPendingIntake = r.status === 'pending';
+
+        return `
+          <tr class="hover:bg-slate-900/40 transition">
+            <td class="px-4 py-3 font-mono text-[10px] text-indigo-300">
+              <span class="font-bold select-all">${(r.id || '').slice(0, 10)}</span>
+              ${end ? `<div class="text-[9px] text-slate-500 mt-0.5">${end.endorsed_at || ''}</div>` : ''}
+            </td>
+            <td class="px-4 py-3">
+              <div class="font-bold text-white text-xs">${r.client_name}</div>
+              <div class="text-[10px] text-slate-400">Loved One: ${r.deceased_name || 'Self / Pre-Need'}</div>
+              <div class="text-[10px] text-slate-500 font-mono">${r.contact_number || 'N/A'}</div>
+            </td>
+            <td class="px-4 py-3">
+              <div class="text-slate-200 font-semibold text-xs">${pkgTitle}</div>
+              <div class="text-[10px] text-[#c5a880]">${roomTitle}</div>
+              <div class="text-[10px] text-slate-400 font-mono">Date: ${r.schedule_date || 'TBD'}</div>
+            </td>
+            <td class="px-4 py-3 max-w-xs">
+              <div class="flex items-center gap-1.5 mb-1">
+                <span class="px-1.5 py-0.2 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 text-[9px] font-semibold">
+                  ${end?.faith_tradition || 'General Rite'}
+                </span>
+                <span class="text-[9px] text-emerald-400 font-mono">
+                  ${end?.docs_status || 'Docs Verified'}
+                </span>
+              </div>
+              <div class="text-[11px] text-slate-300 line-clamp-2 italic">
+                "${end?.counselor_notes || r.notes || 'Family intake review in progress.'}"
+              </div>
+              ${isRevision && end?.director_feedback ? `
+                <div class="mt-1.5 p-1.5 rounded-lg bg-amber-950/80 border border-amber-700/80 text-[10px] text-amber-200">
+                  <strong>Director Feedback:</strong> ${end.director_feedback}
+                </div>
+              ` : ''}
+            </td>
+            <td class="px-4 py-3 font-mono">
+              <div class="font-bold text-amber-300 text-xs">${Number(r.total_amount).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' })}</div>
+              <div class="text-[10px] text-slate-400">${end?.payment_terms || 'Standard Term'}</div>
+              ${end?.monthly_amortization ? `<div class="text-[10px] text-indigo-300">₱${Number(end.monthly_amortization).toLocaleString('en-PH', { minimumFractionDigits: 2 })} / mo</div>` : ''}
+            </td>
+            <td class="px-4 py-3">
+              ${isEndorsed ? `
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-amber-950 text-amber-300 border border-amber-800 flex items-center gap-1 w-max animate-pulse">
+                  <i data-lucide="clock" class="w-2.5 h-2.5"></i> Awaiting Director
+                </span>
+              ` : isConfirmed ? `
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1 w-max">
+                  <i data-lucide="check-circle" class="w-2.5 h-2.5"></i> Contract Issued
+                </span>
+              ` : isRevision ? `
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-purple-950 text-purple-300 border border-purple-800 flex items-center gap-1 w-max">
+                  <i data-lucide="alert-circle" class="w-2.5 h-2.5"></i> Needs Revision
+                </span>
+              ` : `
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1 w-max">
+                  <i data-lucide="help-circle" class="w-2.5 h-2.5"></i> Needs Intake
+                </span>
+              `}
+            </td>
+            <td class="px-4 py-3 text-right space-x-1.5 whitespace-nowrap">
+              ${(isPendingIntake || isRevision) ? `
+                <button onclick="endorseExistingReservation('${r.id}')" class="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold shadow flex items-center gap-1 inline-flex">
+                  <i data-lucide="send" class="w-3 h-3"></i> Endorse
+                </button>
+              ` : ''}
+              ${isEndorsed ? `
+                <button onclick="openEndorsementModalForEdit('${r.id}')" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] border border-slate-700">
+                  Edit Note
+                </button>
+              ` : ''}
+              ${isConfirmed ? `
+                <button onclick="showGenerativeCertificate('${r.id}')" class="px-2.5 py-1 rounded-lg bg-[#c5a880] hover:bg-[#b8a189] text-[#101216] text-[10px] font-bold shadow flex items-center gap-1 inline-flex">
+                  <i data-lucide="sparkles" class="w-3 h-3"></i> View Contract
+                </button>
+              ` : ''}
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // 3. Render Admin Endorsements & Approvals Queue
+    function renderAdminEndorsements() {
+      const tbody = document.getElementById('admin-endorsements-tbody');
+      if (!tbody) return;
+
+      const endorsedList = appReservations.filter(r => r.counselor_endorsement || r.status === 'endorsed');
+
+      if (endorsedList.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="text-center py-8 text-slate-500 font-sans text-xs">
+              No counselor endorsements currently in queue. Counselors submit plans from Counselor Portal.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = endorsedList.map(r => {
+        const pkg = appPackages.find(p => p.id === r.package_id);
+        const room = appRooms.find(rm => rm.id === r.room_id);
+        const pkgTitle = pkg ? pkg.title : 'Memorial Package';
+        const roomTitle = room ? room.room_name : 'Chapel To Be Assigned';
+        const end = r.counselor_endorsement;
+        const isEndorsed = r.status === 'endorsed';
+        const isConfirmed = r.status === 'confirmed';
+
+        return `
+          <tr class="hover:bg-slate-900/40 transition">
+            <td class="px-4 py-3 font-mono text-[10px] text-amber-300">
+              <div class="font-bold select-all">${(r.id || '').slice(0, 10)}</div>
+              <div class="text-[9px] text-slate-400 mt-0.5">By: ${end?.endorsed_by || 'Counselor Elena'}</div>
+            </td>
+            <td class="px-4 py-3">
+              <div class="font-bold text-white text-xs">${r.client_name}</div>
+              <div class="text-[10px] text-slate-400">Loved One: ${r.deceased_name || 'Self / Pre-Need'}</div>
+              <div class="text-[10px] text-slate-500 font-mono">${r.contact_number}</div>
+            </td>
+            <td class="px-4 py-3">
+              <div class="text-slate-200 font-semibold text-xs">${pkgTitle}</div>
+              <div class="text-[10px] text-[#c5a880]">${roomTitle}</div>
+              <div class="text-[10px] text-slate-400 font-mono">${r.schedule_date}</div>
+            </td>
+            <td class="px-4 py-3 max-w-xs">
+              <div class="flex flex-wrap gap-1 mb-1">
+                <span class="px-1.5 py-0.2 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 text-[9px] font-semibold">
+                  ${end?.faith_tradition || 'Traditional'}
+                </span>
+                <span class="px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[9px]">
+                  ${end?.docs_status || 'Docs OK'}
+                </span>
+              </div>
+              <div class="text-[11px] text-slate-300 leading-relaxed italic">
+                "${end?.counselor_notes || r.notes || 'Counselor assessment provided.'}"
+              </div>
+            </td>
+            <td class="px-4 py-3 font-mono">
+              <div class="font-bold text-amber-300 text-xs">${Number(r.total_amount).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' })}</div>
+              <div class="text-[10px] text-slate-400">${end?.payment_terms || 'Standard'}</div>
+              ${end?.monthly_amortization ? `<div class="text-[10px] text-emerald-400">₱${Number(end.monthly_amortization).toLocaleString('en-PH', { minimumFractionDigits: 2 })} / mo</div>` : ''}
+            </td>
+            <td class="px-4 py-3">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                isConfirmed ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' :
+                r.status === 'revision_requested' ? 'bg-purple-950 text-purple-300 border border-purple-800' :
+                'bg-amber-950 text-amber-300 border border-amber-800 animate-pulse'
+              }">
+                ${isConfirmed ? 'Approved & Issued' : r.status === 'revision_requested' ? 'Revision Pending' : 'Pending Director Decision'}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-right space-x-1.5 whitespace-nowrap">
+              ${isEndorsed ? `
+                <button onclick="approveCounselorEndorsement('${r.id}')" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:brightness-110 text-white text-xs font-bold shadow flex items-center gap-1 inline-flex">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i> Approve & Issue Contract
+                </button>
+                <button onclick="openDirectorRevisionModal('${r.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-medium border border-amber-600/40 inline-flex items-center gap-1">
+                  <i data-lucide="rotate-ccw" class="w-3 h-3"></i> Request Revision
+                </button>
+              ` : ''}
+              ${isConfirmed ? `
+                <button onclick="showGenerativeCertificate('${r.id}')" class="px-3 py-1.5 rounded-xl bg-[#c5a880] hover:bg-[#b8a189] text-[#101216] text-xs font-bold shadow inline-flex items-center gap-1">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Certificate & Contract
+                </button>
+              ` : ''}
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // 4. Director Actions: Approve Counselor Endorsement
+    async function approveCounselorEndorsement(id) {
+      const rec = appReservations.find(r => r.id === id);
+      if (!rec) return;
+
+      rec.status = 'confirmed';
+      if (rec.counselor_endorsement) {
+        rec.counselor_endorsement.approved_by = currentUser?.full_name || 'Director Arthur Vance';
+        rec.counselor_endorsement.approved_at = new Date().toISOString();
+      }
+
+      localStorage.setItem('everloom_reservations', JSON.stringify(appReservations));
+      addSecurityAuditRecord(currentUser?.email || 'director@everloom.com', `COUNSELOR_ENDORSEMENT_APPROVED [${id}]`, 'Endorsements', 'SUCCESS');
+      addAuditLog('APPROVAL', `Memorial Director approved counselor endorsement for ${rec.client_name}. Official contract issued.`, currentUser?.email || 'director@everloom.com');
+
+      renderAdminEndorsements();
+      renderAdminReservations();
+      renderCounselorPipeline();
+      renderMyReservations();
+      updateStats();
+
+      showToast(`Endorsement approved for ${rec.client_name}! Contract issued.`, 'success');
+      showGenerativeCertificate(id);
+    }
+
+    // 5. Director Actions: Request Revision Modal & Submit
+    function openDirectorRevisionModal(id) {
+      const modal = document.getElementById('modal-director-revision');
+      const targetInput = document.getElementById('revision-target-id');
+      const feedbackInput = document.getElementById('director-feedback-text');
+
+      if (targetInput) targetInput.value = id;
+      if (feedbackInput) feedbackInput.value = 'Please re-verify the chapel setup and adjust installment terms to accommodate the indigent assistance voucher.';
+      if (modal) modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function submitDirectorRevisionRequest() {
+      const id = document.getElementById('revision-target-id')?.value;
+      const feedback = document.getElementById('director-feedback-text')?.value.trim();
+
+      if (!id || !feedback) {
+        showToast('Please provide feedback notes for the counselor.', 'error');
+        return;
+      }
+
+      const rec = appReservations.find(r => r.id === id);
+      if (rec) {
+        rec.status = 'revision_requested';
+        if (!rec.counselor_endorsement) {
+          rec.counselor_endorsement = {};
+        }
+        rec.counselor_endorsement.director_feedback = feedback;
+        rec.counselor_endorsement.reviewed_by = currentUser?.full_name || 'Director Arthur Vance';
+        rec.counselor_endorsement.reviewed_at = new Date().toISOString();
+
+        localStorage.setItem('everloom_reservations', JSON.stringify(appReservations));
+        addSecurityAuditRecord(currentUser?.email || 'director@everloom.com', `DIRECTOR_REVISION_REQUESTED [${id}]`, 'Endorsements', 'SUCCESS');
+        addAuditLog('REVISION', `Director Vance requested revision on endorsement ${id}: ${feedback}`, currentUser?.email || 'director@everloom.com');
+
+        closeModal('modal-director-revision');
+        renderAdminEndorsements();
+        renderAdminReservations();
+        renderCounselorPipeline();
+        updateStats();
+        showToast(`Revision request sent to Family Care Counselor.`, 'info');
+      }
+    }
+
+    // 6. Counselor Modal Logic: Open Endorsement Modal
+    function openEndorsementModal(sourceReservationId = null) {
+      const modal = document.getElementById('modal-counselor-endorsement');
+      if (!modal) return;
+
+      populateEndorsementModalDropdowns();
+
+      const sourceIdInput = document.getElementById('endorse-source-res-id');
+      if (sourceIdInput) sourceIdInput.value = sourceReservationId || '';
+
+      const clientInput = document.getElementById('endorse-client-name');
+      const contactInput = document.getElementById('endorse-contact');
+      const deceasedInput = document.getElementById('endorse-deceased-name');
+      const dateInput = document.getElementById('endorse-schedule-date');
+      const notesInput = document.getElementById('endorse-counselor-notes');
+
+      if (sourceReservationId) {
+        const source = appReservations.find(r => r.id === sourceReservationId);
+        if (source) {
+          if (clientInput) clientInput.value = source.client_name;
+          if (contactInput) contactInput.value = source.contact_number;
+          if (deceasedInput) deceasedInput.value = source.deceased_name || '';
+          if (dateInput) dateInput.value = source.schedule_date || '';
+          if (notesInput && source.counselor_endorsement?.counselor_notes) {
+            notesInput.value = source.counselor_endorsement.counselor_notes;
+          } else if (notesInput && source.notes) {
+            notesInput.value = `Family Intake: ${source.notes}`;
+          }
+          const pkgSel = document.getElementById('endorse-package-select');
+          if (pkgSel && source.package_id) pkgSel.value = source.package_id;
+          const roomSel = document.getElementById('endorse-room-select');
+          if (roomSel && source.room_id) roomSel.value = source.room_id;
+        }
+      } else {
+        // Default seed values for rapid testing
+        if (clientInput && !clientInput.value) clientInput.value = "Rosario Bautista";
+        if (contactInput && !contactInput.value) contactInput.value = "+63 917 221 4488";
+        if (deceasedInput && !deceasedInput.value) deceasedInput.value = "Don Fernando Bautista";
+        if (dateInput && !dateInput.value) {
+          const d = new Date();
+          d.setDate(d.getDate() + 7);
+          dateInput.value = d.toISOString().split('T')[0];
+        }
+        if (notesInput && !notesInput.value) {
+          notesInput.value = "Conducted empathetic family counseling session. Recommended Serenity Classic with Catholic vigil prayers and 12-month installment plan with senior discount.";
+        }
+      }
+
+      calculateEndorsementSummary();
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function openEndorsementModalForEdit(id) {
+      openEndorsementModal(id);
+    }
+
+    function endorseExistingReservation(id) {
+      openEndorsementModal(id);
+    }
+
+    function populateEndorsementModalDropdowns() {
+      const pkgSel = document.getElementById('endorse-package-select');
+      const roomSel = document.getElementById('endorse-room-select');
+
+      if (pkgSel) {
+        pkgSel.innerHTML = appPackages.map(p => `
+          <option value="${p.id}" data-price="${p.price}">${p.title} (${Number(p.price).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' })})</option>
+        `).join('');
+      }
+
+      if (roomSel) {
+        roomSel.innerHTML = '<option value="">-- No Chapel Assigned --</option>' +
+          appRooms.map(r => `
+            <option value="${r.id}" data-price="${r.price_per_day}">${r.room_name} (${Number(r.price_per_day).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' })}/day)</option>
+          `).join('');
+      }
+    }
+
+    function calculateEndorsementSummary() {
+      const pkgSel = document.getElementById('endorse-package-select');
+      const roomSel = document.getElementById('endorse-room-select');
+      const termSel = document.getElementById('endorse-terms-select')?.value || '12-Month Installment (0% Interest)';
+      const subsidy = parseFloat(document.getElementById('endorse-subsidy')?.value || 0);
+      const down = parseFloat(document.getElementById('endorse-downpayment')?.value || 0);
+
+      const pkgPrice = pkgSel && pkgSel.selectedIndex >= 0 ? parseFloat(pkgSel.options[pkgSel.selectedIndex].getAttribute('data-price') || 0) : 0;
+      const roomPrice = roomSel && roomSel.selectedIndex > 0 ? parseFloat(roomSel.options[roomSel.selectedIndex].getAttribute('data-price') || 0) : 0;
+      const baseTotal = pkgPrice + roomPrice;
+
+      let discount = subsidy;
+      let finalTotal = baseTotal - subsidy;
+      let monthlyAmort = 0;
+
+      if (termSel.includes('Spot Cash')) {
+        const cashDiscount = baseTotal * 0.10;
+        discount += cashDiscount;
+        finalTotal = Math.max(0, baseTotal - discount);
+        monthlyAmort = 0;
+      } else if (termSel.includes('12-Month')) {
+        finalTotal = Math.max(0, baseTotal - subsidy);
+        const balance = Math.max(0, finalTotal - down);
+        monthlyAmort = balance / 12;
+      } else if (termSel.includes('24-Month')) {
+        const buffer = (baseTotal - subsidy) * 0.035;
+        finalTotal = Math.max(0, baseTotal - subsidy + buffer);
+        const balance = Math.max(0, finalTotal - down);
+        monthlyAmort = balance / 24;
+      } else if (termSel.includes('36-Month')) {
+        const buffer = (baseTotal - subsidy) * 0.05;
+        finalTotal = Math.max(0, baseTotal - subsidy + buffer);
+        const balance = Math.max(0, finalTotal - down);
+        monthlyAmort = balance / 36;
+      }
+
+      const sumBase = document.getElementById('endorse-summary-base');
+      const sumDiscount = document.getElementById('endorse-summary-discount');
+      const sumMonthly = document.getElementById('endorse-summary-monthly');
+      const sumTotal = document.getElementById('endorse-summary-total');
+
+      if (sumBase) sumBase.textContent = Number(baseTotal).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
+      if (sumDiscount) sumDiscount.textContent = `- ₱${Number(discount).toLocaleString('en-PH', { minimumFractionDigits: 2 })}`;
+      if (sumMonthly) sumMonthly.textContent = monthlyAmort > 0 ? `₱${Number(monthlyAmort).toLocaleString('en-PH', { minimumFractionDigits: 2 })} / mo` : 'Fully Paid Spot Cash';
+      if (sumTotal) sumTotal.textContent = Number(finalTotal).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
+
+      return { baseTotal, discount, finalTotal, monthlyAmort };
+    }
+
+    // 7. Handle Counselor Endorsement Submission
+    function handleCounselorEndorsementSubmit(e) {
+      e.preventDefault();
+
+      const sourceId = document.getElementById('endorse-source-res-id')?.value;
+      const clientName = document.getElementById('endorse-client-name').value.trim();
+      const contact = document.getElementById('endorse-contact').value.trim();
+      const deceasedName = document.getElementById('endorse-deceased-name').value.trim() || null;
+      const scheduleDate = document.getElementById('endorse-schedule-date').value;
+      const faith = document.getElementById('endorse-faith-tradition').value;
+      const emotionalState = document.getElementById('endorse-emotional-state').value;
+      const docsStatus = document.getElementById('endorse-docs-status').value;
+      const counselorNotes = document.getElementById('endorse-counselor-notes').value.trim();
+      const pkgId = document.getElementById('endorse-package-select').value;
+      const roomId = document.getElementById('endorse-room-select').value || null;
+      const terms = document.getElementById('endorse-terms-select').value;
+      const subsidy = parseFloat(document.getElementById('endorse-subsidy').value || 0);
+      const downpayment = parseFloat(document.getElementById('endorse-downpayment').value || 0);
+
+      const calc = calculateEndorsementSummary();
+
+      const endorsementData = {
+        endorsed_by: currentUser?.full_name || "Elena Rostova (Counselor)",
+        endorsed_at: new Date().toISOString().replace('T', ' ').substring(0, 19),
+        faith_tradition: faith,
+        emotional_state: emotionalState,
+        docs_status: docsStatus,
+        counselor_notes: counselorNotes,
+        payment_terms: terms,
+        subsidy_amount: subsidy,
+        downpayment_amount: downpayment,
+        monthly_amortization: calc.monthlyAmort,
+        director_feedback: null
+      };
+
+      if (sourceId) {
+        const rec = appReservations.find(r => r.id === sourceId);
+        if (rec) {
+          rec.client_name = clientName;
+          rec.contact_number = contact;
+          rec.deceased_name = deceasedName;
+          rec.schedule_date = scheduleDate;
+          rec.package_id = pkgId;
+          rec.room_id = roomId;
+          rec.total_amount = calc.finalTotal;
+          rec.status = 'endorsed';
+          rec.counselor_endorsement = endorsementData;
+        }
+      } else {
+        const newRecord = {
+          id: 'res_cns_' + Date.now().toString().slice(-6),
+          client_name: clientName,
+          contact_number: contact,
+          service_type: 'pre-need',
+          package_id: pkgId,
+          room_id: roomId,
+          deceased_name: deceasedName,
+          schedule_date: scheduleDate,
+          total_amount: calc.finalTotal,
+          status: 'endorsed',
+          notes: counselorNotes,
+          counselor_endorsement: endorsementData,
+          created_at: new Date().toISOString()
+        };
+        appReservations.unshift(newRecord);
+      }
+
+      localStorage.setItem('everloom_reservations', JSON.stringify(appReservations));
+      addSecurityAuditRecord(currentUser?.email || 'counselor@everloom.com', `COUNSELOR_PLAN_ENDORSED [${clientName}]`, 'Endorsements', 'SUCCESS');
+      addAuditLog('ENDORSEMENT', `Counselor Elena Rostova endorsed memorial plan for ${clientName} to Director Vance for approval`, currentUser?.email || 'counselor@everloom.com');
+
+      closeModal('modal-counselor-endorsement');
+      renderCounselorPipeline();
+      renderAdminEndorsements();
+      renderAdminReservations();
+      renderMyReservations();
+      updateStats();
+
+      showToast(`Plan endorsed successfully! Sent to Director Vance for final approval.`, 'success');
+    }
+
+    // 8. Pre-Need Flexible Payment Calculator Logic
+    function initCalculatorDropdowns() {
+      const pkgSel = document.getElementById('calc-package-select');
+      if (pkgSel && pkgSel.children.length === 0) {
+        pkgSel.innerHTML = appPackages.map(p => `
+          <option value="${p.id}" data-price="${p.price}">${p.title} (${Number(p.price).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' })})</option>
+        `).join('');
+      }
+      runAmortizationCalculator();
+    }
+
+    function runAmortizationCalculator() {
+      const pkgSel = document.getElementById('calc-package-select');
+      const termSel = document.getElementById('calc-term-select');
+      const subsidyInput = document.getElementById('calc-subsidy-input');
+      const downInput = document.getElementById('calc-downpayment-input');
+
+      if (!pkgSel || !termSel) return;
+
+      const pkg = appPackages.find(p => p.id === pkgSel.value) || appPackages[0];
+      const basePrice = pkg ? pkg.price : 45000;
+      const term = termSel.value;
+      const subsidy = parseFloat(subsidyInput?.value || 0);
+      const downpayment = parseFloat(downInput?.value || 0);
+
+      let cashDiscount = 0;
+      let bufferAmount = 0;
+      let months = 1;
+      let monthlyAmort = 0;
+
+      if (term === 'spot_cash') {
+        cashDiscount = basePrice * 0.10;
+        months = 1;
+        monthlyAmort = 0;
+      } else if (term === '12') {
+        months = 12;
+      } else if (term === '24') {
+        months = 24;
+        bufferAmount = (basePrice - subsidy) * 0.035;
+      } else if (term === '36') {
+        months = 36;
+        bufferAmount = (basePrice - subsidy) * 0.05;
+      }
+
+      const totalCost = Math.max(0, basePrice - subsidy - cashDiscount + bufferAmount);
+      const amortizableBalance = Math.max(0, totalCost - downpayment);
+
+      if (term !== 'spot_cash' && months > 0) {
+        monthlyAmort = amortizableBalance / months;
+      }
+
+      // Display in UI
+      const titleEl = document.getElementById('calc-result-plan-title');
+      const totalCostEl = document.getElementById('calc-result-total-cost');
+      const dispTerm = document.getElementById('calc-disp-term');
+      const dispDown = document.getElementById('calc-disp-down');
+      const dispDiscount = document.getElementById('calc-disp-discount');
+      const dispMonthly = document.getElementById('calc-disp-monthly');
+      const rowGross = document.getElementById('calc-row-gross');
+      const rowSubsidy = document.getElementById('calc-row-subsidy');
+      const rowCashDiscount = document.getElementById('calc-row-cash-discount');
+      const rowBuffer = document.getElementById('calc-row-buffer');
+      const rowBalance = document.getElementById('calc-row-balance');
+
+      if (titleEl && pkg) titleEl.textContent = pkg.title;
+      if (totalCostEl) totalCostEl.textContent = Number(totalCost).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
+      if (dispTerm) dispTerm.textContent = term === 'spot_cash' ? 'Spot Cash (Full)' : `${months} Months`;
+      if (dispDown) dispDown.textContent = Number(downpayment).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
+      if (dispDiscount) dispDiscount.textContent = Number(subsidy + cashDiscount).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
+      if (dispMonthly) dispMonthly.textContent = term === 'spot_cash' ? 'Paid in Full' : `₱${Number(monthlyAmort).toLocaleString('en-PH', { minimumFractionDigits: 2 })}`;
+
+      if (rowGross) rowGross.textContent = Number(basePrice).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
+      if (rowSubsidy) rowSubsidy.textContent = `- ₱${Number(subsidy).toLocaleString('en-PH', { minimumFractionDigits: 2 })}`;
+      if (rowCashDiscount) rowCashDiscount.textContent = `- ₱${Number(cashDiscount).toLocaleString('en-PH', { minimumFractionDigits: 2 })}`;
+      if (rowBuffer) rowBuffer.textContent = `+ ₱${Number(bufferAmount).toLocaleString('en-PH', { minimumFractionDigits: 2 })}`;
+      if (rowBalance) rowBalance.textContent = Number(amortizableBalance).toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
+    }
+
+    function applyCalculatedTermsToEndorsementModal() {
+      const pkgSel = document.getElementById('calc-package-select');
+      const termSel = document.getElementById('calc-term-select');
+      const subsidyInput = document.getElementById('calc-subsidy-input');
+      const downInput = document.getElementById('calc-downpayment-input');
+
+      openEndorsementModal();
+
+      const endPkgSel = document.getElementById('endorse-package-select');
+      const endTermSel = document.getElementById('endorse-terms-select');
+      const endSubsidy = document.getElementById('endorse-subsidy');
+      const endDown = document.getElementById('endorse-downpayment');
+
+      if (endPkgSel && pkgSel) endPkgSel.value = pkgSel.value;
+      if (endSubsidy && subsidyInput) endSubsidy.value = subsidyInput.value;
+      if (endDown && downInput) endDown.value = downInput.value;
+
+      if (endTermSel && termSel) {
+        if (termSel.value === 'spot_cash') endTermSel.value = 'Spot Cash (10% Discount)';
+        else if (termSel.value === '12') endTermSel.value = '12-Month Installment (0% Interest)';
+        else if (termSel.value === '24') endTermSel.value = '24-Month Installment (3.5% Buffer)';
+        else if (termSel.value === '36') endTermSel.value = '36-Month Installment (5.0% Buffer)';
+      }
+
+      calculateEndorsementSummary();
+      showToast('Transferred calculated financing terms to endorsement form!', 'info');
+    }
+
+    // 9. Memorial Consultation Scheduler Logic
+    function renderCounselorConsultations() {
+      const container = document.getElementById('counselor-consultations-list');
+      if (!container) return;
+
+      if (appCounselorConsultations.length === 0) {
+        container.innerHTML = `
+          <div class="p-4 text-center text-slate-500 rounded-2xl bg-slate-900/60 border border-slate-800 text-xs">
+            No consultations scheduled yet. Fill out the form to schedule a walk-through or tele-counseling session.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = appCounselorConsultations.map(c => `
+        <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2 hover:border-indigo-500/50 transition">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-white text-xs">${c.client_name}</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">
+              ${c.medium}
+            </span>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-400 font-mono">
+            <span class="flex items-center gap-1 text-[#c5a880]"><i data-lucide="calendar" class="w-3 h-3"></i> ${c.date}</span>
+            <span class="flex items-center gap-1 text-slate-300"><i data-lucide="clock" class="w-3 h-3"></i> ${c.time}</span>
+            <span class="flex items-center gap-1 text-slate-400"><i data-lucide="phone" class="w-3 h-3"></i> ${c.contact}</span>
+          </div>
+          <p class="text-xs text-slate-300 italic">"${c.notes || 'Family memorial consultation.'}"</p>
+          <div class="pt-2 border-t border-slate-800/80 flex justify-between items-center text-[10px]">
+            <span class="text-slate-500">Counselor: ${c.counselor}</span>
+            <button onclick="openEndorsementFromConsultation('${c.client_name}', '${c.contact}', '${c.notes}')" class="px-2 py-0.5 rounded bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white font-medium transition">
+              Create Endorsement &rarr;
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function handleScheduleConsultation(e) {
+      e.preventDefault();
+
+      const clientName = document.getElementById('consult-client-name').value.trim();
+      const contact = document.getElementById('consult-contact').value.trim();
+      const date = document.getElementById('consult-date').value;
+      const time = document.getElementById('consult-time').value;
+      const medium = document.getElementById('consult-medium').value;
+      const notes = document.getElementById('consult-notes').value.trim();
+
+      const newConsult = {
+        id: 'cns_' + Date.now(),
+        client_name: clientName,
+        contact: contact,
+        date: date,
+        time: time,
+        medium: medium,
+        notes: notes,
+        counselor: currentUser?.full_name || "Elena Rostova (Counselor)"
+      };
+
+      appCounselorConsultations.unshift(newConsult);
+      localStorage.setItem('everloom_counselor_consultations', JSON.stringify(appCounselorConsultations));
+      addAuditLog('CONSULTATION', `Consultation scheduled with ${clientName} on ${date} (${medium})`, currentUser?.email || 'counselor@everloom.com');
+
+      document.getElementById('form-counselor-consultation').reset();
+      renderCounselorConsultations();
+      updateStats();
+      showToast(`Consultation successfully scheduled with ${clientName}!`, 'success');
+    }
+
+    function openEndorsementFromConsultation(name, contact, notes) {
+      openEndorsementModal();
+      const clientInput = document.getElementById('endorse-client-name');
+      const contactInput = document.getElementById('endorse-contact');
+      const notesInput = document.getElementById('endorse-counselor-notes');
+
+      if (clientInput) clientInput.value = name;
+      if (contactInput) contactInput.value = contact;
+      if (notesInput) notesInput.value = `Family Consultation Intake: ${notes}`;
+      calculateEndorsementSummary();
     }
   </script>
 </body>

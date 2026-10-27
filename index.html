@@ -96,6 +96,69 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* Print Styles: Isolate and print only the Official Memorial Certificate */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #modal-generative-certificate,
+      #modal-generative-certificate #generative-cert-content,
+      #modal-generative-certificate #generative-cert-content * {
+        visibility: visible !important;
+      }
+      #modal-generative-certificate {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 99999 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+      }
+      #modal-generative-certificate > div {
+        background: #ffffff !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 24px !important;
+        width: 100% !important;
+        max-width: 750px !important;
+        color: #111827 !important;
+      }
+      #modal-generative-certificate #generative-cert-content {
+        background: #ffffff !important;
+        border: 2px solid #b89b72 !important;
+        border-radius: 16px !important;
+        padding: 24px !important;
+        color: #111827 !important;
+      }
+      #modal-generative-certificate #generative-cert-content * {
+        color: #111827 !important;
+        background: transparent !important;
+      }
+      #modal-generative-certificate #generative-cert-content .font-mono,
+      #modal-generative-certificate #generative-cert-content #cert-total {
+        color: #855f2b !important;
+        font-weight: bold !important;
+      }
+      #modal-generative-certificate #cert-status-badge {
+        background: #ecfdf5 !important;
+        color: #065f46 !important;
+        border: 1px solid #10b981 !important;
+      }
+      /* Hide modal header, close button and print/done action buttons during print */
+      #modal-generative-certificate .border-b:first-child,
+      #modal-generative-certificate button,
+      #toast-container {
+        display: none !important;
+        visibility: hidden !important;
+      }
+    }
   </style>
 </head>
 <body class="bg-[#0f1115] text-slate-200 min-h-screen flex flex-col font-sans antialiased selection:bg-[#c5a880] selection:text-[#121417]">

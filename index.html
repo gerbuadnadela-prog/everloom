@@ -2745,6 +2745,7 @@
 
       // Sync Supabase data
       await testSupabaseConnection(true);
+      await fetchProfiles();
       await fetchPackages();
       await fetchRooms();
       await fetchReservations();
@@ -3851,6 +3852,9 @@
         localStorage.setItem('everloom_system_users', JSON.stringify(appSystemUsers));
         localStorage.setItem('everloom_registered_creds', JSON.stringify(localCredentials));
 
+        // Sync to Supabase Cloud profiles table
+        syncProfileToSupabase(newUser);
+
         showToast(`User ${fullName} successfully created!`, 'success');
         addSecurityAuditRecord(currentUser?.email || 'admin', `USER_CREATED [${email}] (Role: ${role})`, 'User Management', 'SUCCESS');
       }
@@ -4279,6 +4283,9 @@
           appSystemUsers.push(newProfile);
           localStorage.setItem('everloom_system_users', JSON.stringify(appSystemUsers));
 
+          // Real-time synchronization to Supabase Cloud Database (public.profiles)
+          syncProfileToSupabase(newProfile);
+
           localCredentials[email] = password;
           localStorage.setItem('everloom_registered_creds', JSON.stringify(localCredentials));
 
@@ -4428,6 +4435,62 @@
     }
 
     // 4. SUPABASE API INTEGRATIONS
+    async function fetchProfiles() {
+      try {
+        const res = await fetch(`${SUPABASE_REST_URL}profiles?select=*&order=created_at.desc`, {
+          headers: { 'apikey': SUPABASE_ANON_KEY }
+        });
+        if (res.ok) {
+          const cloudProfiles = await res.json();
+          if (Array.isArray(cloudProfiles) && cloudProfiles.length > 0) {
+            cloudProfiles.forEach(cp => {
+              const idx = appSystemUsers.findIndex(u => u.email.toLowerCase() === cp.email.toLowerCase());
+              if (idx !== -1) {
+                appSystemUsers[idx] = { ...appSystemUsers[idx], ...cp };
+              } else {
+                appSystemUsers.push({
+                  id: cp.id,
+                  email: cp.email,
+                  full_name: cp.full_name || cp.email.split('@')[0],
+                  role: cp.role || 'client',
+                  status: cp.status || 'active',
+                  failed_attempts: cp.failed_attempts || 0,
+                  lockout_until: cp.lockout_until || null,
+                  created_at: cp.created_at || new Date().toISOString()
+                });
+              }
+            });
+            localStorage.setItem('everloom_system_users', JSON.stringify(appSystemUsers));
+            renderAdminUsers();
+          }
+        }
+      } catch (e) {
+        console.warn('Could not fetch profiles from Supabase:', e);
+      }
+    }
+
+    async function syncProfileToSupabase(profile) {
+      try {
+        await fetch(`${SUPABASE_REST_URL}profiles`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({
+            email: profile.email,
+            full_name: profile.full_name,
+            role: profile.role,
+            status: profile.status || 'active',
+            failed_attempts: profile.failed_attempts || 0
+          })
+        });
+      } catch (e) {
+        console.warn('Could not sync profile to Supabase:', e);
+      }
+    }
+
     async function testSupabaseConnection(silent = false) {
       const dot = document.getElementById('supabase-status-dot');
       const text = document.getElementById('supabase-status-text');
